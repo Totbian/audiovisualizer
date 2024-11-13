@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perlin Noise X Vertex Shader</title>
     <style>
-        body {
-            margin: 0;
-        }
+      body {
+        margin: 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <script id="vertexshader" type="vertex">
       uniform float u_time;
 
@@ -19,22 +19,22 @@
       {
         return x - floor(x * (1.0 / 289.0)) * 289.0;
       }
-      
+
       vec4 mod289(vec4 x)
       {
         return x - floor(x * (1.0 / 289.0)) * 289.0;
       }
-      
+
       vec4 permute(vec4 x)
       {
         return mod289(((x*34.0)+10.0)*x);
       }
-      
+
       vec4 taylorInvSqrt(vec4 r)
       {
         return 1.79284291400159 - 0.85373472095314 * r;
       }
-      
+
       vec3 fade(vec3 t) {
         return t*t*t*(t*(t*6.0-15.0)+10.0);
       }
@@ -105,7 +105,7 @@
         vec3 fade_xyz = fade(Pf0);
         vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
         vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
-        float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x); 
+        float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
         return 2.2 * n_xyz;
       }
 
@@ -119,13 +119,13 @@
       }
     </script>
     <script id="fragmentshader" type="fragment">
-        uniform float u_red;
-        uniform float u_blue;
-        uniform float u_green;
-        void main() {
-            gl_FragColor = vec4(vec3(u_red, u_green, u_blue), 1. );
-        }
+      uniform float u_red;
+      uniform float u_blue;
+      uniform float u_green;
+      void main() {
+          gl_FragColor = vec4(vec3(u_red, u_green, u_blue), 1. );
+      }
     </script>
     <script src="./js/scripts.js" type="module"></script>
-</body>
+  </body>
 </html>
